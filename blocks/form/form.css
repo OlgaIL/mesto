@@ -1,0 +1,13 @@
+@import url(__edit/form__edit.css);
+@import url(__title/form__title.css);
+@import url(__close/form__close.css);
+@import url(__edt-text/form__edt-text.css);
+@import url(__submit/form__submit.css);
+
+.form{
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: start;
+	font-family: 'Inter', Arial, sans-serif;
+}
