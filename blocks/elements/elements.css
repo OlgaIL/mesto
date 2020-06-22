@@ -1,11 +1,6 @@
+@import url(__grid/elements__grid.css);
 .elements{
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(281px, 1fr));
-	grid-column-gap: 18px;
-	grid-row-gap: 21px;
 	padding-bottom: 66px;
-
-	
 }
 
 

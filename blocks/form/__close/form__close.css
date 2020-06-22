@@ -9,6 +9,7 @@
 	box-sizing: border-box;
 	cursor: pointer;
 	background-color: unset;
+	transition: opacity .4s;
 }
 
 .form__close:hover{

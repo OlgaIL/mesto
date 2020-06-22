@@ -1,4 +1,4 @@
-@import url(__containe/popup__containe.css);
+@import url(__container/popup__container.css);
 
 .popup{
 	position: absolute;

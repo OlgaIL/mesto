@@ -1,19 +1,19 @@
+const elementEdit = document.querySelector('.lead__edit-button');
+const elementClose = document.querySelector('.form__close');
+
+
+// Находим форму в DOM
+let formElement = document.querySelector('.form');
+let nameInput = document.querySelector('.lead__name');
+let jobInput = document.querySelector('.lead__text');
+
+
 function showEditPopup() {
     let EditForm = document.querySelector('.popup');
     EditForm.classList.toggle('popup_opened');
     if(EditForm.classList.contains('popup_opened')) InitEditPopup();
 }
 
-let elementEdit = document.querySelector('.lead__edit-button');
-elementEdit.addEventListener('click', showEditPopup);
-
-let elementClose = document.querySelector('.form__close');
-elementClose.addEventListener('click', showEditPopup);
-
-// Находим форму в DOM
-let formElement = document.querySelector('.form');
-let nameInput = document.querySelector('.lead__name');
-let jobInput = document.querySelector('.lead__text');
 
 function InitEditPopup(){
 	formElement['pro-name'].value=nameInput.textContent;
@@ -28,4 +28,7 @@ function formSubmitHandler (evt) {
 	showEditPopup();
 }
 
+
+elementEdit.addEventListener('click', showEditPopup);
+elementClose.addEventListener('click', showEditPopup);
 formElement.addEventListener('submit', formSubmitHandler);

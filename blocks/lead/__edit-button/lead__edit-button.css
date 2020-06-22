@@ -5,11 +5,13 @@
 	border: 0px;
 	cursor: pointer;
 	background-color: unset;
+	padding: 0px;
+	transition: opacity .4s;
 }
 
 .lead__edit-button:hover{
 	opacity: 0.6;
-	/**transition???*/
+
 }
 
 .lead__edit-button:focus{

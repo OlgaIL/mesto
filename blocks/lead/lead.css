@@ -10,8 +10,6 @@
 .lead{
 	display: grid;
 	grid-template-columns: 120px 1fr 150px;
-	/* 120px 1fr 150px;
-	repeat(auto-fit, minmax(150px, 1fr));*/
 	
 	grid-column-gap: 30px;
 	padding: 36px 0px 47px 0px;
@@ -28,15 +26,13 @@
 
 
 
-@media screen and (max-width: 700px){
+@media all and (max-width: 700px){
 	.lead{
-		padding-left: 27px;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
 		align-items: center;
 		padding-top: 38px;
 		padding-bottom: 36px;
-
 	}
-  }
+}
