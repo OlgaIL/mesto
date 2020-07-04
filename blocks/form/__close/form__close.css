@@ -2,6 +2,7 @@
 	border: 0px;
 	width: 40px;
 	height: 40px;
+
 	background-image: url(../../../images/CloseIcon.png);
 	background-size: initial;
 	background-repeat: no-repeat;
@@ -10,6 +11,7 @@
 	cursor: pointer;
 	background-color: unset;
 	transition: opacity .4s;
+	min-width: 40px;
 }
 
 .form__close:hover{
@@ -18,4 +20,13 @@
 
 .form__close:focus{
 	outline-style: none;
+}
+
+
+@media all and (max-width: 500px){
+	.form__close{
+		width: 30px;
+		height: 30px;
+		min-width: 30px;
+	}
 }

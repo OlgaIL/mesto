@@ -1,18 +1,127 @@
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+
+
+// Находим кнопки в DOM
 const elementEdit = document.querySelector('.lead__edit-button');
-const elementClose = document.querySelector('.form__close');
+const elementAdd = document.querySelector('.lead__add-button');
+const formElement = document.querySelector('.form');
+const AddForm = document.querySelector('.form_type_add');
+const ImgPopup =  document.querySelector('.popup__image');
+const elementClose = document.querySelectorAll('.form__close');
+
+const elementTemplate = document.querySelector('#element').content;
+const elementsList = document.querySelector('.elements__list');
 
 
-// Находим форму в DOM
-let formElement = document.querySelector('.form');
-let nameInput = document.querySelector('.lead__name');
-let jobInput = document.querySelector('.lead__text');
+// Находим тексты в DOM
+const nameInput = document.querySelector('.lead__name');
+const jobInput = document.querySelector('.lead__text');
+
+let SelectPopup={}; //выбранный попап 
+
+
+function formSubmitHandlerADD(evt){
+	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+	const ImgValidate =  AddForm['pro-link'].value;
+//мини-валидация
+	if (AddForm['pro-name'].value==='') return false;
+	if(!(ImgValidate.startsWith('http') && (ImgValidate.endsWith('.jpg') || ImgValidate.endsWith('.png') || ImgValidate.endsWith('.gif') || ImgValidate.endsWith('.svg')))) {
+		AddForm['pro-link'].value='';
+		return false;}
+	
+	let elementItem = {
+		link: '',
+		name: ''
+	};
+
+	elementItem.link = AddForm['pro-link'].value;
+	elementItem.name = AddForm['pro-name'].value;
+
+let newElement = elementTemplate.cloneNode(true);
+// отображаем на странице
+newElementInit(newElement, elementItem);
+elementsList.prepend(newElement);
+showclosePopup(SelectPopup);
+}
+
+
+function newElementInit(newItem, item){
+// наполняем содержимым
+newItem.querySelector('.element__image').src = item.link;
+newItem.querySelector('.element__image').alt =  item.name;
+newItem.querySelector('.element__title').textContent = item.name;
+addListeners(newItem);
+}
 
 
 function showEditPopup() {
     let EditForm = document.querySelector('.popup');
-    EditForm.classList.toggle('popup_opened');
-    if(EditForm.classList.contains('popup_opened')) InitEditPopup();
+	EditForm.classList.toggle('popup_opened');
+
 }
+
+
+
+function showPopup(e){
+	const buttonForm = e.target.classList.value;
+	switch (buttonForm) {
+		case 'lead__add-button':
+			SelectPopup = AddForm.closest('.popup');
+			AddForm.reset();
+			break;
+		case 'lead__edit-button':
+			SelectPopup = document.querySelector('.popup');
+			InitEditPopup();
+			break;
+		case 'element__image':
+			SelectPopup = ImgPopup.closest('.popup');
+			ShowImage(e.target);
+			break;
+		default:
+			SelectPopup = e.target.closest('.popup');
+		}
+
+	showclosePopup(SelectPopup);
+}
+
+
+function ShowImage(imgObj){
+	ImgPopup.src=imgObj.src;
+	ImgPopup.alt=imgObj.alt;
+	let ImgCaption = SelectPopup.querySelector('.popup__caption');
+	ImgCaption.textContent = imgObj.alt;
+
+}
+
+function showclosePopup(obj){
+	obj.classList.toggle('popup_opened'); 
+}
+
 
 
 function InitEditPopup(){
@@ -25,10 +134,49 @@ function formSubmitHandler (evt) {
 	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 	jobInput.textContent =  formElement['pro-text'].value;
 	nameInput.textContent  = formElement['pro-name'].value;
-	showEditPopup();
+	showclosePopup(SelectPopup);
 }
 
 
-elementEdit.addEventListener('click', showEditPopup);
-elementClose.addEventListener('click', showEditPopup);
+
+
+function addListeners(element) {
+	element.querySelector('.element__delete').addEventListener('click', elementDelete);
+	element.querySelector('.element__like').addEventListener('click', elementLike);
+	element.querySelector('.element__image').addEventListener('click', showPopup);
+
+  }
+  
+
+
+function elementDelete(e) {
+	const element = e.target.closest('.element');
+	element.remove();
+  }
+
+  function elementLike(e) {
+	const element = e.target;
+	element.classList.toggle('element__like_active');
+	
+  }
+
+
+  initialCards.forEach(function (item) {
+	// клонируем содержимое тега template
+	let newElement = elementTemplate.cloneNode(true);
+	newElementInit(newElement, item);
+	// отображаем на странице
+	elementsList.append(newElement);
+	
+	});
+
+
+elementAdd.addEventListener('click', showPopup);
+elementEdit.addEventListener('click', showPopup);
+
+AddForm.addEventListener('submit', formSubmitHandlerADD);
 formElement.addEventListener('submit', formSubmitHandler);
+
+elementClose.forEach(function (item){
+	item.addEventListener('click', showPopup);
+});
