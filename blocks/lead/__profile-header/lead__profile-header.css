@@ -1,8 +1,8 @@
 .lead__profile-header{
-	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
 	align-items: baseline;
+	display: flex;
 }
 
 @media all and (max-width: 450px){
