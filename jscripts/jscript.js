@@ -86,40 +86,39 @@ function showEditPopup() {
 }
 
 
-
 function showPopup(e){
-	const buttonForm = e.target.classList.value;
-	switch (buttonForm) {
-		case 'lead__add-button':
-			SelectPopup = AddForm.closest('.popup');
-			AddForm.reset();
-			break;
-		case 'lead__edit-button':
-			SelectPopup = document.querySelector('.popup');
-			InitEditPopup();
-			break;
-		case 'element__image':
-			SelectPopup = ImgPopup.closest('.popup');
-			ShowImage(e.target);
-			break;
-		default:
-			SelectPopup = e.target.closest('.popup');
-		}
-
 	showclosePopup(SelectPopup);
 }
 
+function showclosePopup(obj){
+	obj.classList.toggle('popup_opened'); 
+}
 
-function ShowImage(imgObj){
+
+function addElement(e){
+	SelectPopup = AddForm.closest('.popup');
+	AddForm.reset();
+	showclosePopup(SelectPopup);
+}
+
+function editElement(e){
+	SelectPopup = document.querySelector('.popup');
+	InitEditPopup();
+	showclosePopup(SelectPopup);
+}
+
+function ShowImage(e){
+	SelectPopup = ImgPopup.closest('.popup');
+	bigImageInit(e.target);
+	showclosePopup(SelectPopup);
+}
+
+function bigImageInit(imgObj){
 	ImgPopup.src=imgObj.src;
 	ImgPopup.alt=imgObj.alt;
 	let ImgCaption = SelectPopup.querySelector('.popup__caption');
 	ImgCaption.textContent = imgObj.alt;
 
-}
-
-function showclosePopup(obj){
-	obj.classList.toggle('popup_opened'); 
 }
 
 
@@ -143,7 +142,7 @@ function formSubmitHandler (evt) {
 function addListeners(element) {
 	element.querySelector('.element__delete').addEventListener('click', elementDelete);
 	element.querySelector('.element__like').addEventListener('click', elementLike);
-	element.querySelector('.element__image').addEventListener('click', showPopup);
+	element.querySelector('.element__image').addEventListener('click', ShowImage);
 
   }
   
@@ -171,8 +170,8 @@ function elementDelete(e) {
 	});
 
 
-elementAdd.addEventListener('click', showPopup);
-elementEdit.addEventListener('click', showPopup);
+elementAdd.addEventListener('click', addElement);
+elementEdit.addEventListener('click', editElement);
 
 AddForm.addEventListener('submit', formSubmitHandlerADD);
 formElement.addEventListener('submit', formSubmitHandler);
