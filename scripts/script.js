@@ -61,12 +61,12 @@ function formSubmitHandlerADD(evt) {
 	elementItem.name = nameAddInput.value;
 
 	// отображаем на странице
-	let newElement = newElementInit(elementItem);
+	let newElement = initNewElement(elementItem);
 	elementsList.prepend(newElement);
 	showclosePopup(evt.target.closest('.popup'));
 }
 
-function newElementInit(item) {
+function initNewElement(item) {
 	let newItem = elementTemplate.cloneNode(true);
 	let cardImageElement = newItem.querySelector('.element__image');
 	let cardTitleElement = newItem.querySelector('.element__title');
@@ -77,13 +77,13 @@ function newElementInit(item) {
 	cardTitleElement.textContent = item.name;
 
 	//addListeners(newItem);
-	newItem.querySelector('.element__delete').addEventListener('click', elementDelete);
-	newItem.querySelector('.element__like').addEventListener('click', elementLike);
-	newItem.querySelector('.element__image').addEventListener('click', bigImageInit);
+	newItem.querySelector('.element__delete').addEventListener('click', deleteElement);
+	newItem.querySelector('.element__like').addEventListener('click', likeElement);
+	newItem.querySelector('.element__image').addEventListener('click', initBigImage);
 	return newItem;
 }
 
-function bigImageInit(e) {
+function initBigImage(e) {
 	const selectPopup = imgPopup.closest('.popup');
 	const imgObj = e.target;
 	imgPopup.src=imgObj.src;
@@ -108,11 +108,11 @@ function addElement(e) {
 
 function editElement(e) {
 	const selectPopup = document.querySelector('.popup');
-	InitEditPopup();
+	initEditPopup();
 	showclosePopup(selectPopup);
 }
 
-function InitEditPopup() {
+function initEditPopup() {
 	nameEditInput.value=nameInput.textContent;
 	textEditInput.value=jobInput.textContent;
 }
@@ -124,12 +124,12 @@ function formSubmitHandler (evt) {
 	showclosePopup(evt.target.closest('.popup'));
 }
 
-function elementDelete(e) {
+function deleteElement(e) {
 	const element = e.target.closest('.element');
 	element.remove();
 }
 
-function elementLike(e) {
+function likeElement(e) {
 	const element = e.target;
 	element.classList.toggle('element__like_active');
 	
@@ -137,7 +137,7 @@ function elementLike(e) {
 
 initialCards.forEach(function (item) {
 	// клонируем содержимое тега template
-	let newElement = newElementInit(item);
+	let newElement = initNewElement(item);
 	// отображаем на странице
 	elementsList.append(newElement);
 });
