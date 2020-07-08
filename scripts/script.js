@@ -32,12 +32,17 @@ const elementAdd = document.querySelector('.lead__add-button');
 const formElement = document.querySelector('.form');
 const nameEditInput = formElement['profile-name'];
 const textEditInput = formElement['profile-text'];
+const selectEditPopup = document.querySelector('.popup');
+
 
 const formAddElement = document.querySelector('.form_type_add');
 const linkAddInput = formAddElement['card-link'];
 const nameAddInput = formAddElement['card-name'];
 
 const imgPopup =  document.querySelector('.popup__image');
+const selectImagePopup = imgPopup.closest('.popup');
+const selectAddPopup = formAddElement.closest('.popup');
+
 const elementCloseList = document.querySelectorAll('.form__close');
 
 const elementTemplate = document.querySelector('#element').content;
@@ -48,6 +53,8 @@ const elementsList = document.querySelector('.elements__list');
 const nameInput = document.querySelector('.lead__name');
 const jobInput = document.querySelector('.lead__text');
 const ImgCaption = document.querySelector('.popup__caption');
+
+
 
 function formSubmitHandlerADD(evt) {
 	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
@@ -61,15 +68,15 @@ function formSubmitHandlerADD(evt) {
 	elementItem.name = nameAddInput.value;
 
 	// отображаем на странице
-	let newElement = initNewElement(elementItem);
+	const newElement = initNewElement(elementItem);
 	elementsList.prepend(newElement);
-	showclosePopup(evt.target.closest('.popup'));
+	showСlosePopup(evt.target.closest('.popup'));
 }
 
 function initNewElement(item) {
-	let newItem = elementTemplate.cloneNode(true);
-	let cardImageElement = newItem.querySelector('.element__image');
-	let cardTitleElement = newItem.querySelector('.element__title');
+	const newItem = elementTemplate.cloneNode(true);
+	const cardImageElement = newItem.querySelector('.element__image');
+	const cardTitleElement = newItem.querySelector('.element__title');
 
 	// наполняем содержимым
 	cardImageElement.src = item.link;
@@ -79,37 +86,30 @@ function initNewElement(item) {
 	//addListeners(newItem);
 	newItem.querySelector('.element__delete').addEventListener('click', deleteElement);
 	newItem.querySelector('.element__like').addEventListener('click', likeElement);
-	newItem.querySelector('.element__image').addEventListener('click', initBigImage);
+	newItem.querySelector('.element__image').addEventListener('click', () => initBigImage(item.name, item.link));
 	return newItem;
 }
 
-function initBigImage(e) {
-	const selectPopup = imgPopup.closest('.popup');
-	const imgObj = e.target;
-	imgPopup.src=imgObj.src;
-	imgPopup.alt=imgObj.alt;
-	ImgCaption.textContent = imgObj.alt;
-	showclosePopup(selectPopup);
+function initBigImage(name, link) {
+	imgPopup.src = link;
+	imgPopup.alt = name;
+	ImgCaption.textContent = name;
+	showСlosePopup(selectImagePopup);
 }
 
-function showPopup(e){
-	showclosePopup(e.target.closest('.popup'));
-}
 
-function showclosePopup(obj) {
+function showСlosePopup(obj) {
 	obj.classList.toggle('popup_opened'); 
 }
 
 function addElement(e) {
-	const selectPopup = formAddElement.closest('.popup');
 	formAddElement.reset();
-	showclosePopup(selectPopup);
+	showСlosePopup(selectAddPopup);
 }
 
 function editElement(e) {
-	const selectPopup = document.querySelector('.popup');
 	initEditPopup();
-	showclosePopup(selectPopup);
+	showСlosePopup(selectEditPopup);
 }
 
 function initEditPopup() {
@@ -121,7 +121,7 @@ function formSubmitHandler (evt) {
 	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 	jobInput.textContent =  textEditInput.value;
 	nameInput.textContent  = nameEditInput.value;
-	showclosePopup(evt.target.closest('.popup'));
+	showСlosePopup(evt.target.closest('.popup'));
 }
 
 function deleteElement(e) {
@@ -137,7 +137,7 @@ function likeElement(e) {
 
 initialCards.forEach(function (item) {
 	// клонируем содержимое тега template
-	let newElement = initNewElement(item);
+	const newElement = initNewElement(item);
 	// отображаем на странице
 	elementsList.append(newElement);
 });
@@ -149,5 +149,5 @@ formAddElement.addEventListener('submit', formSubmitHandlerADD);
 formElement.addEventListener('submit', formSubmitHandler);
 
 elementCloseList.forEach(function (item){
-	item.addEventListener('click', showPopup);
+	item.addEventListener('click', ()=> showСlosePopup(item.closest('.popup')));
 });
