@@ -1,4 +1,4 @@
-.form__edit{
+.form__edit {
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
@@ -17,8 +17,8 @@
 
 
 
-@media all and (max-width: 500px){
-	.form__edit{
+@media all and (max-width: 500px) {
+	.form__edit {
 		margin-top: 30px;
 	}
 }

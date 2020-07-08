@@ -1,8 +1,8 @@
-.footer__copyright{
+.footer__copyright {
 font-style: normal;
 font-weight: normal;
 font-size: 18px;
-line-height:1.22;
+line-height: 1.22;
 
 color: #545454;
 padding-top: 0;
@@ -10,10 +10,9 @@ margin: 0;
 }
 
 
-@media screen and (max-width: 450px){
-	.footer__copyright{
+@media screen and (max-width: 450px) {
+	.footer__copyright {
 		font-size: 14px;
-		line-height:1.21;
-		
+		line-height: 1.21;
 	}
   }

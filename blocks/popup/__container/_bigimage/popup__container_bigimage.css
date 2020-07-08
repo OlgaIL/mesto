@@ -1,4 +1,4 @@
-.popup__container_bigimage{
+.popup__container_bigimage {
 display: flex;
 flex-direction: row;
 align-items: flex-start;
@@ -8,8 +8,8 @@ height: auto;
 }
 
 
-@media all and (max-width: 500px){
-	.popup__container_bigimage{
+@media all and (max-width: 500px) {
+	.popup__container_bigimage {
 		width: 80%;
 		min-width: 300px;
 	}

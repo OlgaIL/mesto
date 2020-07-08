@@ -1,4 +1,4 @@
-.element__delete{
+.element__delete {
 	position: absolute;
 	top: 18px;
 	right: 15px;
@@ -13,15 +13,13 @@
 	cursor: pointer;
 	background-color: unset;
 	padding: 0;
-
 }
 
-.element__delete:hover{
-	opacity: 0.7;
+.element__delete:hover {
+	opacity: .7;
 }
 
-/*???*/
-.element__delete:active, :focus{
+.element__delete:active, :focus {
 	outline-style: none;
 	background-color: unset;
 }

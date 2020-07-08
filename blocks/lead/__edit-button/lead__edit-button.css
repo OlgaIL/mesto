@@ -1,4 +1,4 @@
-.lead__edit-button{
+.lead__edit-button {
 	background-image: url(../../../images/EditButton.png);
 	width: 24px;
 	height: 24px;
@@ -11,18 +11,18 @@
 
 }
 
-.lead__edit-button:hover{
-	opacity: 0.6;
+.lead__edit-button:hover {
+	opacity: .6;
 
 }
 
-.lead__edit-button:focus{
+.lead__edit-button:focus {
 	outline-style: none;
 }
 
 
-@media all and (max-width: 450px){
-	.lead__edit-button{
+@media all and (max-width: 450px) {
+	.lead__edit-button {
 		width: 18px;
 		height: 18px;
 		background-size: contain;

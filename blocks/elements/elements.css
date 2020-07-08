@@ -1,11 +1,11 @@
 @import url(__list/elements__list.css);
-.elements{
+.elements {
 	padding-bottom: 66px;
 }
 
 
 @media screen and (max-width: 900px){
-	.elements{
+	.elements {
 		padding-left: 19px;
 		padding-right: 19px;
 		padding-bottom: 48px;

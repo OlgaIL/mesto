@@ -7,7 +7,7 @@
 @import url(__add-button/lead__add-button.css);
 
 
-.lead{
+.lead {
 	display: grid;
 	grid-template-columns: 120px 1fr 150px;
 	
@@ -17,17 +17,17 @@
 }
 
 
-@media screen and (max-width: 900px){
-.lead{
-	padding-left:19px;
+@media screen and (max-width: 900px) {
+.lead {
+	padding-left: 19px;
 	padding-right: 19px;
 	}
 }
 
 
 
-@media all and (max-width: 700px){
-	.lead{
+@media all and (max-width: 700px) {
+	.lead {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
