@@ -70,7 +70,7 @@ function formSubmitHandlerADD(evt) {
 	// отображаем на странице
 	const newElement = initNewElement(elementItem);
 	elementsList.prepend(newElement);
-	showСlosePopup(evt.target.closest('.popup'));
+	showClosePopup(evt.target.closest('.popup'));
 }
 
 function initNewElement(item) {
@@ -94,22 +94,22 @@ function initBigImage(name, link) {
 	imgPopup.src = link;
 	imgPopup.alt = name;
 	ImgCaption.textContent = name;
-	showСlosePopup(selectImagePopup);
+	showClosePopup(selectImagePopup);
 }
 
 
-function showСlosePopup(obj) {
+function showClosePopup(obj) {
 	obj.classList.toggle('popup_opened'); 
 }
 
 function addElement(e) {
 	formAddElement.reset();
-	showСlosePopup(selectAddPopup);
+	showClosePopup(selectAddPopup);
 }
 
 function editElement(e) {
 	initEditPopup();
-	showСlosePopup(selectEditPopup);
+	showClosePopup(selectEditPopup);
 }
 
 function initEditPopup() {
@@ -121,7 +121,7 @@ function formSubmitHandler (evt) {
 	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 	jobInput.textContent =  textEditInput.value;
 	nameInput.textContent  = nameEditInput.value;
-	showСlosePopup(evt.target.closest('.popup'));
+	showClosePopup(evt.target.closest('.popup'));
 }
 
 function deleteElement(e) {
@@ -149,5 +149,5 @@ formAddElement.addEventListener('submit', formSubmitHandlerADD);
 formElement.addEventListener('submit', formSubmitHandler);
 
 elementCloseList.forEach(function (item){
-	item.addEventListener('click', ()=> showСlosePopup(item.closest('.popup')));
+	item.addEventListener('click', ()=> showClosePopup(item.closest('.popup')));
 });
