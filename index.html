@@ -38,11 +38,13 @@
 
 <div class="popup">
     <div class="popup__container">
-    <form class="form">
+    <form class="form" novalidate>
           <div class="form__edit">
             <h2 class="form__title">Редактировать профиль</h2>
-            <input type="text" class="form__edt-text" name="profile-name">
-            <input type="text" class="form__edt-text" name="profile-text">
+            <input  type="text" class="form__edt-text" name="profile-name" minlength="2" maxlength="40" required placeholder="Имя">
+            <span id="profile-name-error" class="form__error"></span>
+            <input type="text" class="form__edt-text" name="profile-text" minlength="2" maxlength="200" required placeholder="О себе">
+            <span id="profile-text-error" class="form__error"></span>
             <input type="submit" value="Сохранить" class="form__submit">
         </div>
         <button type="button" class="form__close" title="Закрыть"></button>
@@ -50,13 +52,16 @@
   </div>
 </div>
 
+
 <div class="popup">
   <div class="popup__container">
-    <form class="form form_type_add">
+    <form class="form form_type_add" novalidate>
           <div class="form__edit">
             <h2 class="form__title">Новое место</h2>
-            <input type="text" class="form__edt-text" name="card-name" placeholder="Название" required>
-            <input type="text" class="form__edt-text" name="card-link" placeholder="Ссылка на картинку" required type="url"  pattern="https://.*">
+            <input  type="text" class="form__edt-text" name="card-name" placeholder="Название" required  minlength="1" maxlength="30">
+            <span id="card-name-error" class="form__error"></span>
+            <input  class="form__edt-text" name="card-link" placeholder="Ссылка на картинку" required type="url"  pattern="https://.*">
+            <span id="card-link-error" class="form__error"></span>
             <input type="submit" value="Создать" class="form__submit">
           </div>
         <button type="button" class="form__close" title="Закрыть"></button>
@@ -64,8 +69,9 @@
   </div>
 </div>
 
+
 <div class="popup popup_bigimage">
-  <div class="popup__container  popup__container_bigimage">
+  <div class="popup__container popup__container_bigimage">
       <figure class="popup__images">
         <img class="popup__image" alt="" src="">
         <figcaption class="popup__caption">
@@ -83,9 +89,11 @@
       <h3 class="element__title"></h3>
       <button type="button" class="element__like" title="Нравится"></button>
     </div>
-  </li></template>
+  </li>
+</template>
 
-<script src="scripts/script.js"></script>
+<script src="scripts/validate.js"></script>
+<script src="scripts/index.js"></script>
 
 </body>
 </html>

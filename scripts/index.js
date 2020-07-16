@@ -25,13 +25,21 @@ const initialCards = [
     }
 ];
 
+const configForm = {
+	formSelector: '.form',
+    inputSelector: '.form__edt-text',
+	submitSelector: '.form__submit',
+	disableSubmitClass: 'form__submit_disable',
+	inputErrorClass: 'form__edt-text_type_error'
+};
+
 
 // Находим кнопки в DOM
 const elementEdit = document.querySelector('.lead__edit-button');
 const elementAdd = document.querySelector('.lead__add-button');
-const formElement = document.querySelector('.form');
-const nameEditInput = formElement['profile-name'];
-const textEditInput = formElement['profile-text'];
+const formEditElement = document.querySelector('.form');
+const nameEditInput = formEditElement['profile-name'];
+const textEditInput = formEditElement['profile-text'];
 const selectEditPopup = document.querySelector('.popup');
 
 
@@ -49,7 +57,7 @@ const elementTemplate = document.querySelector('#element').content;
 const elementsList = document.querySelector('.elements__list');
 
 
-// Находим тексты в DOM  -?? переименовать?
+// Находим тексты в DOM 
 const nameInput = document.querySelector('.lead__name');
 const jobInput = document.querySelector('.lead__text');
 const ImgCaption = document.querySelector('.popup__caption');
@@ -70,7 +78,7 @@ function formSubmitHandlerADD(evt) {
 	// отображаем на странице
 	const newElement = initNewElement(elementItem);
 	elementsList.prepend(newElement);
-	showClosePopup(evt.target.closest('.popup'));
+	closePopup(evt.target.closest('.popup'));
 }
 
 function initNewElement(item) {
@@ -90,29 +98,54 @@ function initNewElement(item) {
 	return newItem;
 }
 
-function initBigImage(name, link) {
+function initBigImage (name, link) {
 	imgPopup.src = link;
 	imgPopup.alt = name;
 	ImgCaption.textContent = name;
-	showClosePopup(selectImagePopup);
+	showPopup(selectImagePopup);
 }
 
 
-function showClosePopup(obj) {
-	obj.classList.toggle('popup_opened'); 
+function showPopup (obj) {
+	document.addEventListener('keydown', checkKey);
+	obj.classList.add('popup_opened'); 
+	obj.addEventListener('click', checkPopup);
 }
 
-function addElement(e) {
+
+function closePopup (obj) {
+	document.removeEventListener('keydown', checkKey);
+	obj.removeEventListener('click', checkPopup);
+	obj.classList.remove('popup_opened'); 
+}
+
+function checkKey (e){
+	const popupObj  = document.querySelector('.popup_opened');
+	if (e.key === 'Escape') closePopup(popupObj);
+}
+
+function checkPopup (e){
+	if (e.target !== e.currentTarget) { return };
+	closePopup(e.currentTarget);
+}
+
+
+function addElement (e) {
 	formAddElement.reset();
-	showClosePopup(selectAddPopup);
+	configForm.formSelector = '.form_type_add';
+	clearError(formAddElement);
+	showPopup(selectAddPopup);
 }
 
-function editElement(e) {
+
+function editElement (e) {
 	initEditPopup();
-	showClosePopup(selectEditPopup);
+	clearError(formEditElement);
+	showPopup(selectEditPopup);
 }
 
-function initEditPopup() {
+function initEditPopup () {
+	configForm.formSelector = '.form';
 	nameEditInput.value=nameInput.textContent;
 	textEditInput.value=jobInput.textContent;
 }
@@ -121,15 +154,15 @@ function formSubmitHandler (evt) {
 	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 	jobInput.textContent =  textEditInput.value;
 	nameInput.textContent  = nameEditInput.value;
-	showClosePopup(evt.target.closest('.popup'));
+	closePopup(evt.target.closest('.popup'));
 }
 
-function deleteElement(e) {
+function deleteElement (e) {
 	const element = e.target.closest('.element');
 	element.remove();
 }
 
-function likeElement(e) {
+function likeElement (e) {
 	const element = e.target;
 	element.classList.toggle('element__like_active');
 	
@@ -146,8 +179,15 @@ elementAdd.addEventListener('click', addElement);
 elementEdit.addEventListener('click', editElement);
 
 formAddElement.addEventListener('submit', formSubmitHandlerADD);
-formElement.addEventListener('submit', formSubmitHandler);
+formEditElement.addEventListener('submit', formSubmitHandler);
+
+
 
 elementCloseList.forEach(function (item){
-	item.addEventListener('click', ()=> showClosePopup(item.closest('.popup')));
+	item.addEventListener('click', ()=> closePopup(item.closest('.popup')));
 });
+
+
+initValidation(configForm);
+configForm.formSelector = '.form_type_add';
+initValidation(configForm);

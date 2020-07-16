@@ -2,7 +2,10 @@
 @import url(__title/form__title.css);
 @import url(__close/form__close.css);
 @import url(__edt-text/form__edt-text.css);
+@import url(__edt-text/_type/form__edt-text_type_error.css);
 @import url(__submit/form__submit.css);
+@import url(__submit/_disable/form__submit_disable.css);
+@import url(__error/form__error.css);
 
 .form {
 	display: flex;
