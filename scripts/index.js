@@ -26,7 +26,7 @@ const initialCards = [
 ];
 
 const configForm = {
-	formSelector: '.form',
+	formSelectorList: ['.form','.form_type_add'],
     inputSelector: '.form__edt-text',
 	submitSelector: '.form__submit',
 	disableSubmitClass: 'form__submit_disable',
@@ -64,7 +64,7 @@ const ImgCaption = document.querySelector('.popup__caption');
 
 
 
-function formSubmitHandlerADD(evt) {
+function formSubmitHandlerAdd(evt) {
 	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 	
 	const elementItem = {
@@ -115,30 +115,28 @@ function showPopup (obj) {
 
 function closePopup (obj) {
 	document.removeEventListener('keydown', checkKey);
+	obj.classList.remove('popup_opened');
 	obj.removeEventListener('click', checkPopup);
-	obj.classList.remove('popup_opened'); 
 }
 
 function checkKey (e){
-	const popupObj  = document.querySelector('.popup_opened');
-	if (e.key === 'Escape') closePopup(popupObj);
+	const popupOpened  = document.querySelector('.popup_opened');
+	if (e.key === 'Escape') closePopup(popupOpened);
 }
 
 function checkPopup (e){
-	if (e.target !== e.currentTarget) { return };
-	closePopup(e.currentTarget);
+	if (e.target === e.currentTarget) closePopup(e.currentTarget);;
 }
 
 
-function addElement (e) {
+function openAddElement (e) {
 	formAddElement.reset();
-	configForm.formSelector = '.form_type_add';
 	clearError(formAddElement);
 	showPopup(selectAddPopup);
 }
 
 
-function editElement (e) {
+function openEditElement (e) {
 	initEditPopup();
 	clearError(formEditElement);
 	showPopup(selectEditPopup);
@@ -175,10 +173,10 @@ initialCards.forEach(function (item) {
 	elementsList.append(newElement);
 });
 
-elementAdd.addEventListener('click', addElement);
-elementEdit.addEventListener('click', editElement);
+elementAdd.addEventListener('click', openAddElement);
+elementEdit.addEventListener('click', openEditElement);
 
-formAddElement.addEventListener('submit', formSubmitHandlerADD);
+formAddElement.addEventListener('submit', formSubmitHandlerAdd);
 formEditElement.addEventListener('submit', formSubmitHandler);
 
 
@@ -188,6 +186,4 @@ elementCloseList.forEach(function (item){
 });
 
 
-initValidation(configForm);
-configForm.formSelector = '.form_type_add';
 initValidation(configForm);
