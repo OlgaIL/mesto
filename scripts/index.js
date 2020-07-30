@@ -1,3 +1,15 @@
+import {Card} from './card.js';
+import {FormValidator} from './FormValidator.js';
+import {showPopup, closePopup} from './utilits.js';
+
+
+const configForm = {
+    inputSelector: '.form__edt-text',
+	submitSelector: '.form__submit',
+	disableSubmitClass: 'form__submit_disable',
+	inputErrorClass: 'form__edt-text_type_error'
+};
+
 const initialCards = [
     {
         name: 'Архыз',
@@ -25,13 +37,12 @@ const initialCards = [
     }
 ];
 
-const configForm = {
-	formSelectorList: ['.form','.form_type_add'],
-    inputSelector: '.form__edt-text',
-	submitSelector: '.form__submit',
-	disableSubmitClass: 'form__submit_disable',
-	inputErrorClass: 'form__edt-text_type_error'
-};
+const elementsList = document.querySelector('.elements__list'); // список карточек
+
+const  formValidEdit = new FormValidator(configForm, '.form');
+formValidEdit.enableValidation();
+const  formValidAdd = new FormValidator(configForm, '.form_type_add');
+formValidAdd.enableValidation();
 
 
 // Находим кнопки в DOM
@@ -47,20 +58,13 @@ const formAddElement = document.querySelector('.form_type_add');
 const linkAddInput = formAddElement['card-link'];
 const nameAddInput = formAddElement['card-name'];
 
-const imgPopup =  document.querySelector('.popup__image');
-const selectImagePopup = imgPopup.closest('.popup');
+
 const selectAddPopup = formAddElement.closest('.popup');
-
 const elementCloseList = document.querySelectorAll('.form__close');
-
-const elementTemplate = document.querySelector('#element').content;
-const elementsList = document.querySelector('.elements__list');
-
 
 // Находим тексты в DOM 
 const nameInput = document.querySelector('.lead__name');
 const jobInput = document.querySelector('.lead__text');
-const ImgCaption = document.querySelector('.popup__caption');
 
 
 
@@ -76,69 +80,24 @@ function formSubmitHandlerAdd(evt) {
 	elementItem.name = nameAddInput.value;
 
 	// отображаем на странице
-	const newElement = initNewElement(elementItem);
+	const card = new Card(elementItem, '#element');
+	// Создаём карточку и возвращаем наружу
+	const newElement = card.generateCard();
 	elementsList.prepend(newElement);
 	closePopup(evt.target.closest('.popup'));
 }
 
-function initNewElement(item) {
-	const newItem = elementTemplate.cloneNode(true);
-	const cardImageElement = newItem.querySelector('.element__image');
-	const cardTitleElement = newItem.querySelector('.element__title');
-
-	// наполняем содержимым
-	cardImageElement.src = item.link;
-	cardImageElement.alt =  item.name;
-	cardTitleElement.textContent = item.name;
-
-	//addListeners(newItem);
-	newItem.querySelector('.element__delete').addEventListener('click', deleteElement);
-	newItem.querySelector('.element__like').addEventListener('click', likeElement);
-	newItem.querySelector('.element__image').addEventListener('click', () => initBigImage(item.name, item.link));
-	return newItem;
-}
-
-function initBigImage (name, link) {
-	imgPopup.src = link;
-	imgPopup.alt = name;
-	ImgCaption.textContent = name;
-	showPopup(selectImagePopup);
-}
-
-
-function showPopup (obj) {
-	document.addEventListener('keydown', checkKey);
-	obj.classList.add('popup_opened'); 
-	obj.addEventListener('click', checkPopup);
-}
-
-
-function closePopup (obj) {
-	document.removeEventListener('keydown', checkKey);
-	obj.classList.remove('popup_opened');
-	obj.removeEventListener('click', checkPopup);
-}
-
-function checkKey (e){
-	const popupOpened  = document.querySelector('.popup_opened');
-	if (e.key === 'Escape') closePopup(popupOpened);
-}
-
-function checkPopup (e){
-	if (e.target === e.currentTarget) closePopup(e.currentTarget);;
-}
 
 
 function openAddElement (e) {
 	formAddElement.reset();
-	clearError(formAddElement);
+	formValidAdd.clearError();
 	showPopup(selectAddPopup);
 }
 
-
 function openEditElement (e) {
 	initEditPopup();
-	clearError(formEditElement);
+	formValidEdit.clearError();
 	showPopup(selectEditPopup);
 }
 
@@ -155,23 +114,7 @@ function formSubmitHandler (evt) {
 	closePopup(evt.target.closest('.popup'));
 }
 
-function deleteElement (e) {
-	const element = e.target.closest('.element');
-	element.remove();
-}
 
-function likeElement (e) {
-	const element = e.target;
-	element.classList.toggle('element__like_active');
-	
-}
-
-initialCards.forEach(function (item) {
-	// клонируем содержимое тега template
-	const newElement = initNewElement(item);
-	// отображаем на странице
-	elementsList.append(newElement);
-});
 
 elementAdd.addEventListener('click', openAddElement);
 elementEdit.addEventListener('click', openEditElement);
@@ -186,4 +129,11 @@ elementCloseList.forEach(function (item){
 });
 
 
-initValidation(configForm);
+initialCards.forEach((item) => {
+	// Создадим экземпляр карточки
+	const card = new Card(item, '#element');
+	// Создаём карточку и возвращаем наружу
+	const cardElement = card.generateCard();
+	// Добавляем в DOM
+	elementsList.append(cardElement);
+  });
