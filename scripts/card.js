@@ -1,4 +1,4 @@
-import{imgPopup, selectImagePopup, ImgCaption} from './constpopup.js';
+import{imgPopup, selectImagePopup, ImgCaption} from './constants.js';
 import {showPopup} from './utilits.js';
 
 export class Card {

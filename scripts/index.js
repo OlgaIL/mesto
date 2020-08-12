@@ -1,43 +1,14 @@
 import {Card} from './card.js';
+import {Section} from './section.js';
 import {FormValidator} from './FormValidator.js';
 import {showPopup, closePopup} from './utilits.js';
+import{configForm, initialCards, elementsList} from './constants.js';
 
 
-const configForm = {
-    inputSelector: '.form__edt-text',
-	submitSelector: '.form__submit',
-	disableSubmitClass: 'form__submit_disable',
-	inputErrorClass: 'form__edt-text_type_error'
-};
 
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
 
-const elementsList = document.querySelector('.elements__list'); // список карточек
+
+
 
 const  formValidEdit = new FormValidator(configForm, '.form');
 formValidEdit.enableValidation();
@@ -66,7 +37,15 @@ const elementCloseList = document.querySelectorAll('.form__close');
 const nameInput = document.querySelector('.lead__name');
 const jobInput = document.querySelector('.lead__text');
 
+function renderCard(item) {
+	const card = new Card(item, '#element');
+	// Создаём карточку и возвращаем наружу
+	return card.generateCard();
+}
 
+function selectPopup (e){
+return e.target.closest('.popup');
+}
 
 function formSubmitHandlerAdd(evt) {
 	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
@@ -80,12 +59,12 @@ function formSubmitHandlerAdd(evt) {
 	elementItem.name = nameAddInput.value;
 
 	// отображаем на странице
-	const card = new Card(elementItem, '#element');
-	// Создаём карточку и возвращаем наружу
-	const newElement = card.generateCard();
+	const newElement = renderCard(elementItem);
 	elementsList.prepend(newElement);
-	closePopup(evt.target.closest('.popup'));
+
+	closePopup(selectPopup(evt));
 }
+
 
 
 
@@ -111,7 +90,8 @@ function formSubmitHandler (evt) {
 	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 	jobInput.textContent =  textEditInput.value;
 	nameInput.textContent  = nameEditInput.value;
-	closePopup(evt.target.closest('.popup'));
+	//closePopup(evt.target.closest('.popup'));
+	closePopup(selectPopup(evt));
 }
 
 
@@ -129,11 +109,16 @@ elementCloseList.forEach(function (item){
 });
 
 
-initialCards.forEach((item) => {
-	// Создадим экземпляр карточки
-	const card = new Card(item, '#element');
-	// Создаём карточку и возвращаем наружу
-	const cardElement = card.generateCard();
-	// Добавляем в DOM
-	elementsList.append(cardElement);
-  });
+
+const cardList = new Section({
+	data: initialCards,
+	renderer: (item) => {
+		const card = new Card(item, '#element');
+		const cardElement = card.generateCard();
+		cardList.setItem(cardElement);
+		},
+	},
+	elementsList
+);
+
+cardList.renderItems();
