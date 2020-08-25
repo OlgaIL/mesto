@@ -29,13 +29,24 @@ module.exports = {
 
 			},
 
-		 // добавили правило для обработки файлов
+			{
+				test: /.(png|svg|jpg|gif)$/,
+				loader: 'file-loader?name=./images/[name].[ext]'
+			},
+
+			{
+				test: /.(eot|ttf|woff|woff2)$/,
+				loader: 'file-loader?name=./vendor/[name].[ext]'
+			},
+
+		 /* добавили правило для обработки файлов в общей куче
 			{
 				// регулярное выражение, которое ищет все файлы с такими расширениями
 				test: /\.(png|svg|jpg|gif|woff2|woff)$/,
 				// при обработке этих файлов нужно использовать file-loader
 				loader: 'file-loader'
-			},
+			}, */
+
 		// аналогично  правило для работы с html
 			{
 				test: /\.html$/,

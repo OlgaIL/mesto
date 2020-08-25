@@ -8,16 +8,16 @@ export class PopupWithForm extends Popup {
 	}
 
 	_getInputValues(){
-		// достаём все элементы полей
+		/** достаём все элементы полей */
 		this._inputList = this._formSelector.querySelectorAll('.form__edt-text');
-		// создаём пустой объект
+		/** создаём пустой объект */
 		this._formValues = {};
 
-		// добавляем в этот объект значения всех полей
+		/**  добавляем в этот объект значения всех полей */
 		this._inputList.forEach(input => {
 		this._formValues[input.name] = input.value;
 		});
-		// возвращаем объект значений
+		/**  возвращаем объект значений */
 		return this._formValues;
 	}
 

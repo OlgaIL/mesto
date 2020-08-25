@@ -1,23 +1,23 @@
 export class Card {
-    // в конструкторе будут динамические данные,
-    // для каждого экземпляра свои
+    /** в конструкторе будут динамические данные,
+    * для каждого экземпляра свои
+	*/
     constructor({data,handleCardClick}, cardSelector) {
-        // text и image — приватные поля, 
-        // они нужны только внутри класса
+        /** text и image — приватные поля, они нужны только внутри класса */
         this._name = data.name;
 		this._link = data.link;
-		this._handleCardClick = handleCardClick; //функция открытия окна popup
+		this._handleCardClick = handleCardClick; /** функция открытия окна popup */
 		this._cardSelector  = cardSelector;
 	}
 	
 	_getTemplate() {
-		// здесь выполним все необходимые операции, чтобы вернуть разметку
+		/** здесь выполним все необходимые операции, чтобы вернуть разметку */
 		//const cardElement = document.querySelector('.card-template').content.querySelector('.card').cloneNode(true);
 		
 		const elementTemplate = document.querySelector(this._cardSelector).content;
 		const newItem = elementTemplate.cloneNode(true);
 
-	  // вернём DOM-элемент карточки
+	  /** вернём DOM-элемент карточки */
 		return newItem;
 	}
 
@@ -49,14 +49,16 @@ export class Card {
 
 
 	generateCard() {
-		// Запишем разметку в приватное поле _element.  // Так у других элементов появится доступ к ней.
+		/**  Запишем разметку в приватное поле _element.   Так у других элементов появится доступ к ней.*/
 		this._element = this._getTemplate();
-		this._setEventListeners(); // добавим обработчики 
-		// Добавим данные
-		this._element.querySelector('.element__image').src = this._link;
-		this._element.querySelector('.element__title').textContent = this._name;
-		this._element.querySelector('.element__image').alt = this._name;
-		// Вернём элемент наружу
+		const elementImage = this._element.querySelector('.element__image');
+		const elementTitle = this._element.querySelector('.element__title');
+		this._setEventListeners(); /** добавим обработчики */
+		/** Добавим данные */
+		elementImage.src = this._link;
+		elementImage.alt = this._name;
+		elementTitle.textContent = this._name;
+		/**  Вернём элемент наружу */
 		return this._element;
 	}
 
