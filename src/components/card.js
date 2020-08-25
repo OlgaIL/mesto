@@ -1,14 +1,12 @@
-import{imgPopup, selectImagePopup, ImgCaption} from './constants.js';
-import {showPopup} from './utilits.js';
-
 export class Card {
     // в конструкторе будут динамические данные,
     // для каждого экземпляра свои
-    constructor(data, cardSelector) {
+    constructor({data,handleCardClick}, cardSelector) {
         // text и image — приватные поля, 
         // они нужны только внутри класса
         this._name = data.name;
 		this._link = data.link;
+		this._handleCardClick = handleCardClick; //функция открытия окна popup
 		this._cardSelector  = cardSelector;
 	}
 	
@@ -34,7 +32,7 @@ export class Card {
 		});
 
 		this._element.querySelector('.element__image').addEventListener('click', () => {
-			this._initBigImage();
+			this._handleCardClick({name: this._name, link: this._link});
 		});
 
 	}
@@ -49,12 +47,6 @@ export class Card {
 		event.target.classList.toggle('element__like_active');
 	}
 
-	_initBigImage() {
-		imgPopup.src = this._link;
-		imgPopup.alt = this._name;
-		ImgCaption.textContent = this._name;
-		showPopup(selectImagePopup);
-	}
 
 	generateCard() {
 		// Запишем разметку в приватное поле _element.  // Так у других элементов появится доступ к ней.
@@ -64,8 +56,6 @@ export class Card {
 		this._element.querySelector('.element__image').src = this._link;
 		this._element.querySelector('.element__title').textContent = this._name;
 		this._element.querySelector('.element__image').alt = this._name;
-		
-
 		// Вернём элемент наружу
 		return this._element;
 	}
