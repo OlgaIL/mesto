@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-
 </head>
 <body class="root">
   <div class="page">
@@ -14,13 +13,15 @@
 
     <main class="content">
       <section class="lead">
-        <img src="images/avatar.png" alt="Жак-Ив Кусто" class="lead__avatar">
+        <a href=# class="lead__avatar-cover">
+          <img src="#" alt="" class="lead__avatar">
+        </a>
         <div class="lead__profile-info">
           <div class="lead__profile-header">
-            <h1 class="lead__name">Жак-Ив Кусто</h1>
+            <h1 class="lead__name"></h1>
             <button type="button" title="Редактировать" class="lead__edit-button"></button>
           </div>
-          <p class="lead__text">Исследователь океана</p>
+          <p class="lead__text"></p>
         </div>
         <button type="button" class="lead__add-button" title="Добавить"></button>
       </section>
@@ -43,8 +44,8 @@
             <h2 class="form__title">Редактировать профиль</h2>
             <input  type="text" class="form__edt-text" name="name" minlength="2" maxlength="40" required placeholder="Имя">
             <span id="name-error" class="form__error"></span>
-            <input type="text" class="form__edt-text" name="text" minlength="2" maxlength="200" required placeholder="О себе">
-            <span id="text-error" class="form__error"></span>
+            <input type="text" class="form__edt-text" name="about" minlength="2" maxlength="200" required placeholder="О себе">
+            <span id="about-error" class="form__error"></span>
             <input type="submit" value="Сохранить" class="form__submit">
         </div>
         <button type="button" class="form__close" title="Закрыть"></button>
@@ -69,6 +70,32 @@
   </div>
 </div>
 
+<div class="popup">
+  <div class="popup__container">
+    <form class="form form_type_avatar" novalidate>
+          <div class="form__edit">
+            <h2 class="form__title">Обновить аватар</h2>
+            <input  class="form__edt-text" name="link" placeholder="Ссылка на картинку" required type="url"  pattern="https://.*">
+            <span id="link-error" class="form__error"></span>
+            <input type="submit" value="Сохранить" class="form__submit">
+          </div>
+        <button type="button" class="form__close" title="Закрыть"></button>
+    </form>
+  </div>
+</div>
+
+<div class="popup">
+  <div class="popup__container">
+    <form class="form form_type_delete" novalidate>
+          <div class="form__edit">
+            <h2 class="form__title">Вы уверены?</h2>
+            <input type="submit" value="Да" class="form__submit">
+          </div>
+        <button type="button" class="form__close" title="Закрыть"></button>
+    </form>
+  </div>
+</div>
+
 
 <div class="popup popup_bigimage">
   <div class="popup__container popup__container_bigimage">
@@ -86,14 +113,14 @@
     <button type="button" class="element__delete" title="Удалить"></button>
     <img  class="element__image" src="#">
     <div class="element__name">
-      <h3 class="element__title"></h3>
-      <button type="button" class="element__like" title="Нравится"></button>
+        <h3 class="element__title"></h3>
+        <div class="element__likesinfo">
+          <button type="button" class="element__like" title="Нравится"></button>
+          <div class="element__likecount">2</div>
+        </div>
     </div>
   </li>
-
 </template>
-
-
 
 
 </body>

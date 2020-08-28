@@ -6,6 +6,10 @@
 @import url(__submit/form__submit.css);
 @import url(__submit/_disable/form__submit_disable.css);
 @import url(__error/form__error.css);
+@import url(_type/form_type_add.css);
+@import url(_type/form_type_delete.css);
+
+
 
 .form {
 	display: flex;

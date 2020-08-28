@@ -7,20 +7,27 @@ const elementsList = document.querySelector('.elements__list'); // список 
 
 const formAddElement = document.querySelector('.form_type_add');
 const formEditElement = document.querySelector('.form');
-
+const formDeleteElement = document.querySelector('.form_type_delete');
+const formAvatarElement = document.querySelector('.form_type_avatar');
 
 const selectEditPopup = document.querySelector('.popup');
 const selectAddPopup = formAddElement.closest('.popup');
+const selectDelPopup = formDeleteElement.closest('.popup');
+const selectAvatarPopup = formAvatarElement.closest('.popup');
 
 const nameEditInput = formEditElement['name'];
-const textEditInput = formEditElement['text'];
+const textEditInput = formEditElement['about'];
+const linkAvatarInput = formAvatarElement['link'];
+
 
 const userTextInfo  = {
 	name: document.querySelector('.lead__name'),
-	text: document.querySelector('.lead__text')
+    about: document.querySelector('.lead__text'),
+    avatar: document.querySelector('.lead__avatar')
 }
 
-export {imgPopup, selectImagePopup, ImgCaption, elementsList, formAddElement, formEditElement, selectEditPopup, selectAddPopup};
+export {imgPopup, selectImagePopup, ImgCaption, elementsList, formAddElement, formEditElement, selectEditPopup, selectAddPopup, formDeleteElement, selectDelPopup};
+export {formAvatarElement, selectAvatarPopup, linkAvatarInput};
 export{nameEditInput, textEditInput, userTextInfo};
 
 const configForm = {
@@ -30,30 +37,4 @@ const configForm = {
 	inputErrorClass: 'form__edt-text_type_error'
 };
 
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-export {configForm, initialCards};
+export {configForm};

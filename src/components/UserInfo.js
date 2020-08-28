@@ -1,20 +1,37 @@
 
 export class UserInfo {
-    constructor({name, text}) {
-		this._name  = name;
-		this._text = text;
+    constructor(userData) {
+		this._name  = userData.name;
+		this._about = userData.about;
+		this._avatar = userData.avatar;
 	}
 
 	getUserInfo () {
 		return {
 		userName: this._name.textContent,
-		userDescription: this._text.textContent
+		userDescription: this._about.textContent
 		}
 	}
 
 	setUserInfo (formData) {
-		this._text.textContent = formData.text;
+		this._about.textContent = formData.about;
 		this._name.textContent = formData.name;
+		this.userId = formData._id;
 	}
+
+	setAvatar (formData) {
+	//	console.log (formData);
+		this._avatar.src = formData.avatar;
+		this._avatar.alt = this._name.textContent;
+			}
+
+	getAvatar () {
+		return {
+			link: this._avatar.src
+			}
+	}
+		
+
+
 
 }
