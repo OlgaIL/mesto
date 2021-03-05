@@ -27,11 +27,9 @@
 ------------------------------
 В Фигме размещены макеты с требованиями к проекту:
 
-*[Ссылка на макет в Figma]
-(https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+*[Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
 
-**[Ссылка на макет в Figma] 
-(https://www.figma.com/file/hhhIavVTeuilfPPZ6sbifl/JavaScript.-Sprint-9?node-id=125%3A0)
+**[Ссылка на макет в Figma](https://www.figma.com/file/hhhIavVTeuilfPPZ6sbifl/JavaScript.-Sprint-9?node-id=125%3A0)
 
 
 -----------------------------------------------
