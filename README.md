@@ -2,7 +2,7 @@
 
 ------------------------------
 [ссылка на проект, опубликованный на хостинге GitHub] (https://olgail.github.io/mesto/)
-сайт работает с внешним API, предоставленным Яндекс.Практикум для разработки данной проектной работы.
+сайт работает с внешним API, предоставленным Яндекс.Практикум для разработки проектной работы.
 ------------------------------
 ### Обзор
 
@@ -24,8 +24,12 @@
 **Проект выполнен по следующим требованиям**
 ------------------------------
 В Фигме размещены макеты с требованиями к проекту:
-*[Ссылка на макет в Figma] (https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
-**[Ссылка на макет в Figma] (https://www.figma.com/file/hhhIavVTeuilfPPZ6sbifl/JavaScript.-Sprint-9?node-id=125%3A0)
+
+*[Ссылка на макет в Figma]
+(https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+
+**[Ссылка на макет в Figma] 
+(https://www.figma.com/file/hhhIavVTeuilfPPZ6sbifl/JavaScript.-Sprint-9?node-id=125%3A0)
 
 
 -----------------------------------------------
